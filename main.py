@@ -60,3 +60,33 @@ async def enhance_prompt(req: EnhanceRequest):
         return {"enhanced_prompt": enhanced.strip('"')}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+    
+    
+@app.post("/generate-script")
+async def generate_script(req: PromptRequest):
+    prompt = f"""
+    You are an expert AI video script writer.
+    Generate a detailed cinema-quality video script scene-by-scene based on the following prompt:
+    {req.prompt}
+    
+    Rules:
+    - Focus on creating a compelling narrative with clear scene descriptions.
+    - Return ONLY the script.
+    - No explanation.
+    
+    Include:
+    - Image/Character description
+    - 
+    - Scene number(Scene 1, Scene 2, etc. and timestamp)
+    - Visual description
+    - Naration
+    - Mood
+    - Camera Directions
+    - Emotional tone
+    """
+    
+    try:
+        script = call_groq_api(prompt)
+        return {"script": script.strip('"')}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
