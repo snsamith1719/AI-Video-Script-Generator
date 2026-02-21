@@ -5,6 +5,9 @@ from groq_agent import call_groq_api
 
 app = FastAPI(title="AI Prompt Intelligence API")
 
+@app.get("/health")
+async def health_check():
+    return {"status": "healthy"}
 
 @app.post("/extract-options")
 async def extract_options(req: PromptRequest):
