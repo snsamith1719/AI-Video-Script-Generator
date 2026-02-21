@@ -13,7 +13,7 @@ You are a strict JSON extraction API.
 
 Extract these fields from the user prompt:
 
-- duration( with seconds or minutes in str format)
+- duration( with seconds or minutes in string format)
 - language
 - platform
 - size (Landscape/Vertical/Square)
@@ -35,5 +35,28 @@ User Prompt:
         return parsed
     except json.JSONDecodeError as e:
         raise HTTPException(status_code=500, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.post("/enhance-prompt")
+async def enhance_prompt(req: EnhanceRequest):
+    prompt = F"""
+    You are an expert AI video prompt engineer.
+    Enhance the original prompt based on the following options:
+    {json.dumps(req.options, indent=2)}
+    Original Prompt:
+    {req.original_prompt}
+    Rules:
+    - Focus on improving the prompt for better video generation.
+    - Return ONLY the enhanced prompt.
+    - No explanation.
+    - No markdown.
+    - If an option is null, ignore it.
+    """
+    
+    try:
+        enhanced = call_groq_api(prompt)
+        return {"enhanced_prompt": enhanced.strip('"')}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
