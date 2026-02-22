@@ -1,7 +1,7 @@
 import json
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException # type: ignore
 from schemas import ExtractResponse, PromptRequest,EnhanceRequest
-from fastapi.middleware.cors import CORSMiddleware
+from fastapi.middleware.cors import CORSMiddleware # type: ignore
 from groq_agent import call_groq_api
 
 app = FastAPI(title="AI Prompt Intelligence API")
@@ -58,6 +58,7 @@ User Prompt:
 async def enhance_prompt(req: EnhanceRequest):
     prompt = F"""
     You are an expert AI video prompt engineer.
+    Generate a refined, structured, and production-ready prompt suitable for AI video generation.
     Enhance the original prompt based on the following options:
     {json.dumps(req.options, indent=2)}
     Original Prompt:
@@ -91,7 +92,8 @@ async def generate_script(req: PromptRequest):
     
     Include:
     - Image/Character description
-    - 
+    - cinematic storytelling tone
+    - Scene visualization with clear details
     - Scene number(Scene 1, Scene 2, etc. and timestamp)
     - Visual description
     - Naration

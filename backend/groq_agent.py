@@ -1,4 +1,4 @@
-import requests
+import requests # type: ignore
 from config import GROQ_API_KEY, GROQ_URL, MODEL_NAME
 
 
