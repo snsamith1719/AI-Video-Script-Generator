@@ -9,6 +9,7 @@ function PromptSection({
   generateScript,
   loading,
 }) {
+  const isDisabled = !prompt.trim();
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -37,7 +38,11 @@ function PromptSection({
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={btn.action}
-            className="px-5 py-2 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-500 text-white font-medium shadow-lg hover:shadow-xl transition"
+            disabled={isDisabled}
+            className={
+              "px-5 py-2 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-500 text-white font-medium shadow-lg hover:shadow-xl transition " +
+              (isDisabled ? "opacity-50 cursor-not-allowed" : "")
+            }
           >
             {btn.label}
           </motion.button>

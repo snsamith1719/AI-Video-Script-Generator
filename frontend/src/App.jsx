@@ -15,6 +15,10 @@ function App() {
   const API = import.meta.env.VITE_API_URL;
 
   const extractOptions = async () => {
+    if (!prompt.trim()) {
+      alert("Please enter a prompt first");
+      return;
+    }
     setLoading(true);
     try {
       const res = await axios.post(`${API}/extract-options`, { prompt });
@@ -26,6 +30,10 @@ function App() {
   };
 
   const enhancePrompt = async () => {
+    if (!prompt.trim()) {
+      alert("Please enter a prompt first");
+      return;
+    }
     setLoading(true);
     try {
       const res = await axios.post(`${API}/enhance-prompt`, {
@@ -40,6 +48,10 @@ function App() {
   };
 
   const generateScript = async () => {
+    if (!prompt.trim()) {
+      alert("Please enter a prompt first");
+      return;
+    }
     setLoading(true);
     try {
       const res = await axios.post(`${API}/generate-script`, { prompt });
