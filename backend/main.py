@@ -1,9 +1,21 @@
 import json
 from fastapi import FastAPI, HTTPException
 from schemas import ExtractResponse, PromptRequest,EnhanceRequest
+from fastapi.middleware.cors import CORSMiddleware
 from groq_agent import call_groq_api
 
 app = FastAPI(title="AI Prompt Intelligence API")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:5173",
+        "http://127.0.0.1:5173"
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/health")
 async def health_check():
